@@ -22,11 +22,39 @@ public class ActivityTagServiceImplTest {
     private ActivityTagServiceImpl activityTagService;
     @Test
     public void getActIDByTags() {
-        List<Long> requiredTags=null;
-        List<Long> activity_id=activityTagService.getActIDByTags(requiredTags);
+
+        List<Long> requiredTags=new ArrayList<>();
+        List<Long> activity_id;
+        //用例1
+        requiredTags.add(1L);
+        requiredTags.add(2L);
+        requiredTags.add(10L);
+        requiredTags.add(100L);
+        activity_id=activityTagService.getActIDByTags(requiredTags);
+        System.out.println("用例1");
         if(activity_id!=null)
         for(int i=0;i<activity_id.size();i++){
             System.out.println(activity_id.get(i)+'\n');
         }
+//        用例2
+        requiredTags.clear();
+        requiredTags=null;
+        activity_id=activityTagService.getActIDByTags(requiredTags);
+        System.out.println("用例2");
+        if(activity_id!=null)
+            for(int i=0;i<activity_id.size();i++){
+                System.out.println(activity_id.get(i)+'\n');
+            }
+        //用例3
+        List RequiredTags=new ArrayList();
+        RequiredTags.add("1123");
+        RequiredTags.add(123);
+        RequiredTags.add("asd");
+        activity_id=activityTagService.getActIDByTags(requiredTags);
+        System.out.println("用例3");
+        if(activity_id!=null)
+            for(int i=0;i<activity_id.size();i++){
+                System.out.println(activity_id.get(i)+'\n');
+            }
     }
 }
