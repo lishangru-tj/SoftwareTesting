@@ -101,9 +101,9 @@ selection参数用于选择按钮的样式，这个样式是你们告诉我然�
 </template>
 
 <script>
+import { postOneReport } from "@/api/admin.js";
 import { postFile } from "@/api/file";
 import UploadImg from "@/components/UploadImg";
-import { postOneReport } from "@/api/admin.js";
 export default {
   name: "ReportBox",
   components: { UploadImg },
@@ -197,7 +197,6 @@ export default {
         confirmButtonText: "正在努力提交中",
         confirmButtonLoading: true,
       });
-
       //post给后端
       this.form.activityId = this.activityId;
       this.form.userId = this.userId;
@@ -220,29 +219,32 @@ export default {
           await postFile(this.file_formData)
             .then((res) => {
               console.log("postFile:res:", res);
+              this.$msgbox.close();
+              this.$message({
+                type: "success",
+                message: "举报单提交成功！",
+              });
+              this.dialogVisible = false;
             })
             .catch((err) => {
               console.log("postFile:err:", err);
+              this.$msgbox.close();
+              this.$message({
+                type: "info",
+                message: "举报单提交失败",
+              });
             });
-
-          this.$msgbox.close();
-          this.$message({
-            type: "success",
-            message: "举报单提交成功！",
-          });
-          this.dialogVisible = false;
-
-          //this.uploadPhoto(res.data.message.id);
-        })
-        .catch((err) => {
-          console.log(err);
-          this.$msgbox.close();
-          this.$message({
-            type: "info",
-            message: "举报单提交失败",
-          });
+      })
+      .catch((err) => {
+        console.log(err);
+        this.$msgbox.close();
+        this.$message({
+          type: "info",
+          message: "举报单提交失败",
         });
+      });
     },
+
     Cancel() {
       this.dialogVisible = false;
       this.$message({
