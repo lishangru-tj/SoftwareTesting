@@ -5,6 +5,7 @@ import com.example.backend.dto.FriendDTO;
 import com.example.backend.entity.friendGroup;
 import com.example.backend.service.FriendRequestService;
 import com.example.backend.service.FriendService;
+import com.example.backend.service.UserService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,13 +21,20 @@ public class FriendController {
     @Autowired
     FriendService friendService;
     @Autowired
+    UserService userService;
+    @Autowired
     FriendRequestService friendRequestService;
     @GetMapping("")
     public Result<Map<String,Object>> getUserFriends(@RequestParam Long id){
-        Map<String,Object> map = new HashMap<>();
-        map.put("friends",friendService.getFriends(id));
-        map.put("groups",friendService.getFriendGroups(id));
-        return Result.success(map);
+        if(userService.findUser(id)!=null)
+        {
+            Map<String,Object> map = new HashMap<>();
+            map.put("friends",friendService.getFriends(id));
+            map.put("groups",friendService.getFriendGroups(id));
+            return Result.success(map);
+        }
+        else
+            return Result.fail(201,"输入的用户id不存在");
     }
 
     @PostMapping("manage")

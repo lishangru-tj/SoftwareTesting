@@ -25,7 +25,8 @@ import java.util.Map;
 public class NoticeController {
     @Autowired
     UserNoticeService userNoticeService;
-
+    @Autowired
+    UserService userService;
     @Autowired
     NoticeService noticeService;
 
@@ -47,16 +48,20 @@ public class NoticeController {
     public Result<List<SystemNotice>> findOneUserSystemNoticeInfo(@ApiParam(name = "userId", value = "要查找的用户名", required = true)
                                                                   @RequestParam("userId") Long userId) {
         try {
-            ArrayList<SystemNotice> systemNotices = new ArrayList<SystemNotice>();
-            List<UserNotice> oneUserAllNotice = userNoticeService.findOneUserAllNotice(userId);
-            for (UserNotice un : oneUserAllNotice) {
-                Notice noticeInfo = noticeService.getNoticeById(un.getNoticeId());
-                if (noticeInfo.getType() == 1) {
-                    SystemNotice systemNotice = new SystemNotice(noticeInfo.getNoticeId(), noticeInfo.getTitle(), noticeInfo.getContent(), noticeInfo.getCreateTime(), un.getStatus());
-                    systemNotices.add(systemNotice);
+            if(userService.findUser(userId)!=null) {
+                ArrayList<SystemNotice> systemNotices = new ArrayList<SystemNotice>();
+                List<UserNotice> oneUserAllNotice = userNoticeService.findOneUserAllNotice(userId);
+                for (UserNotice un : oneUserAllNotice) {
+                    Notice noticeInfo = noticeService.getNoticeById(un.getNoticeId());
+                    if (noticeInfo.getType() == 1) {
+                        SystemNotice systemNotice = new SystemNotice(noticeInfo.getNoticeId(), noticeInfo.getTitle(), noticeInfo.getContent(), noticeInfo.getCreateTime(), un.getStatus());
+                        systemNotices.add(systemNotice);
+                    }
                 }
+                return Result.success(systemNotices);
             }
-            return Result.success(systemNotices);
+            else
+                return Result.fail(201,"输入的用户id不存在");
 
         } catch (Exception e) {
             return Result.fail(500, e.getMessage());
