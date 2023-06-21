@@ -57,4 +57,36 @@ public class ActivityTagServiceImplTest {
                 System.out.println(activity_id.get(i)+'\n');
             }
     }
+    @Test
+    public void getActIDByTag() {
+
+        List<Long> requiredTags=new ArrayList<>();
+        List<Long> activity_id;
+        //用例1
+        requiredTags.add(1L);
+        activity_id=activityTagService.getActIDByTags(requiredTags);
+        System.out.println("用例1");
+        if(activity_id!=null)
+            for(int i=0;i<activity_id.size();i++){
+                System.out.println(activity_id.get(i)+'\n');
+            }
+//        用例2
+        requiredTags.clear();
+        requiredTags=null;
+        activity_id=activityTagService.getActIDByTags(requiredTags);
+        System.out.println("用例2");
+        if(activity_id!=null)
+            for(int i=0;i<activity_id.size();i++){
+                System.out.println(activity_id.get(i)+'\n');
+            }
+        //用例3
+        List RequiredTags=new ArrayList();
+        RequiredTags.add("asd");
+        activity_id=activityTagService.getActIDByTags(requiredTags);
+        System.out.println("用例3");
+        if(activity_id!=null)
+            for(int i=0;i<activity_id.size();i++){
+                System.out.println(activity_id.get(i)+'\n');
+            }
+    }
 }
