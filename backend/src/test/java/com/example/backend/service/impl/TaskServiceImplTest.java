@@ -20,7 +20,7 @@ public class TaskServiceImplTest {
     @Resource
     public TaskService taskService;
     @Test
-    public void findOneTaskAndRelative() {
+    public void testfindOneTaskAndRelative() {
         //用例1:
         Long id=Long.parseLong("1650822563365000000");
         Task task = taskService.findOneTaskAndRelative(id);
@@ -36,7 +36,7 @@ public class TaskServiceImplTest {
     }
 
     @Test
-    public void modifyTaskStatus() {
+    public void testmodifyTaskStatus() {
         Long id=Long.parseLong("1650822924532912130");
         Task task1=taskService.findOneTaskAndRelative(id);
         short a=0;

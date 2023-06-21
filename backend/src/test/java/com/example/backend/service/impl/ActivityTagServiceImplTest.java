@@ -21,7 +21,7 @@ public class ActivityTagServiceImplTest {
     @Autowired
     private ActivityTagServiceImpl activityTagService;
     @Test
-    public void getActIDByTags() {
+    public void testgetActIDByTags() {
 
         List<Long> requiredTags=new ArrayList<>();
         List<Long> activity_id;

@@ -27,7 +27,7 @@ public class ActivityServiceImplTest {
     private ActivityServiceImpl activityServiceImpl;
 
     @Test
-    public void createAct() {
+    public void testcreateAct() {
         //用例一
         Activity act=new Activity();
         act.setActivity_id(123L);

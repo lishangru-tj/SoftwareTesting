@@ -22,7 +22,7 @@ public class FriendServiceImplTest {
     @Resource
     public FriendService friendService;
     @Test
-    public void addFriend() {
+    public void testaddFriend() {
         Long userid;
         Long friendid;
         Result<String> friends;

@@ -22,7 +22,7 @@ public class ReportServiceImplTest {
     @Resource
     public ReportService reportService;
     @Test
-    public void getReportList() {
+    public void testgetReportList() {
         String state;
         String target_type;
         String sortBYTime;

@@ -21,7 +21,7 @@ public class UserServiceImplTest {
     @Resource
     public UserService userService;
     @Test
-    public void confirmUser() {
+    public void testconfirmUser() {
         String email="12";
         String password="12";
         //测试用例一：用户不存在
@@ -80,7 +80,7 @@ public class UserServiceImplTest {
 
 
     @Test
-    public void registerUser() {
+    public void testmvnregisterUser() {
         String email="";
         String password="";
         String name="";
